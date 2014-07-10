@@ -1,5 +1,94 @@
 body {
-  background-color: #eeffee;
-  width: 100%;
-  height: 100%;
+  background-color: #005C5C;
+  font-family: arial, helvetica, sans-serif;
+  font-weight: normal;
+  color: #fff;
 }
+h1 {
+  text-align: center;
+  padding: 50px 0;
+  color: #fc0;
+}
+.table {
+  text-align: center;
+}
+.table > div {
+  display: inline-block;
+}
+.frame {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border: 2px solid #333;
+  font-family: arial, helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 0.8em;
+  float: left;
+  margin-right: 2px;
+  background-color: #032724;
+}
+.frame.active {
+  background-color: #086D64; 
+}
+.frame .right-corner,
+.frame .left-corner {
+  position: absolute;
+  top: 0;
+  border-left: 2px solid #333;
+  border-bottom: 2px solid #3A2B16;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.frame .right-corner {
+  right: 0;
+}
+.frame .left-corner {
+  left: 0;
+  border: none;
+}
+.frame .bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.frame .title {
+  font-weight: bold;
+  position: absolute;
+  top: -35px;
+  left: -2px;
+  text-align: center;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border-top: 2px solid #333;
+  border-left: 2px solid #333;
+  border-right: 2px solid #333;
+  background-color: #fc0;
+  color: #333;
+}
+.total .bottom {
+  height: 80px;
+  line-height: 80px;
+  font-size: 1.5em;
+}
+#control {
+  width: 946px;
+  margin: 50px auto 0;
+}
+#control .myButton {
+  border: none;
+  border-radius: 25%;
+  background-color: #fc0;
+  color: #032724;
+  font-size: 1.4em;
+  padding: 10px;
+  cursor: pointer;
+}
+#control .myButton:hover {
+  opacity: 0.6;
+};

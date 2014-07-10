@@ -23,18 +23,38 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+    <div class="container" ng-controller="MainCtrl">
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      <div class="table">
+        
+        <div>
+          
+          <h1>Bowling Score Calculator</h1>
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+          <div class="frame index-{{ $index }}" ng-repeat="frame in frames track by $index" ng-class="user.activeIndex === $index ? 'active' : ''">
+            <div class="title">{{ $index + 1 }}</div>
+            <div class="right-corner">{{ frame.secondAtt }}</div>
+            <div class="left-corner">{{ frame.firstAtt }}</div>
+            <div class="bottom">{{ frame.score }}</div>
+          </div>
+
+          <div id="final-score" class="frame total">
+            <div class="title">Total</div>
+            <div class="bottom">{{ total }}</div>
+          </div>
+         
+        </div>
+
+      </div>
+
+      <div id="control">
+
+          <button id="start" class="myButton">start</button>      
+          <button id="reset" class="myButton">reset</button>
+      
+      </div>
+
+    </div>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -49,7 +69,6 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
         <!-- endbuild -->
 </body>
 </html>
