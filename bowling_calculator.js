@@ -4,6 +4,7 @@ var calculator = {
   frames: [],
   attempts: 10,
   manualScoreData: [],
+  finalScore: 0,
   
   calculateScore: function(){
     
@@ -103,7 +104,9 @@ var calculator = {
       
     });
     
-    console.log(self.frames);
+    self.finalScore = self.frames[9].score;
+
+    return self.finalScore;
     
   },
   
@@ -212,45 +215,6 @@ var calculator = {
   
 };
 
-var data = [{
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 0
-}, {
-  0: 10,
-  1: 10,
-  2: 10
-}]; 
-
-calculator.manualScoreData = data;
-
-calculator.manualScoreData.forEach(function(v, index){
-  
-  calculator.throwBall(index);
-  
-});
-
-calculator.calculateScore();
+function foo(){
+  return 100;
+}
