@@ -214,7 +214,3 @@ var calculator = {
   }
   
 };
-
-function foo(){
-  return 100;
-}
