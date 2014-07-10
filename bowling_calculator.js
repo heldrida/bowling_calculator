@@ -3,6 +3,7 @@ var calculator = {
   pinTotal: 10,
   frames: [],
   attempts: 10,
+  manualScoreData: [],
   
   calculateScore: function(){
     
@@ -14,27 +15,46 @@ var calculator = {
     
     self.frames.forEach(function(f, k){
 
-      if (k === self.frames.length){
-        
+      if (k === self.frames.length - 1){
+
           if (self.frames[k].isSpare){
             
-            score += 10 + self.getPinsKnockDown(10);
+            if (Array.isArray(self.manualScoreData) && self.manualScoreData.length > 0){
+                
+              score += self.manualScoreData[k][2];
+        
+            } else {
+
+              score += 10 + self.getPinsKnockDown(10);
+      
+            }            
+            
             
           } else if (self.frames[k].isStrike) {
             
             score += 10; // automatically gets 10, plus 2 extra shots
             
-            [0, 1].forEach(function(){
+            if (Array.isArray(self.manualScoreData) && self.manualScoreData.length > 0){
+
+                score += self.manualScoreData[k][1];
+                score += self.manualScoreData[k][2];
               
-              score += self.getPinsKnockDown(10);
+            } else {
+
+              [0, 1].forEach(function(){
               
-            });
+                score += self.getPinsKnockDown(10);
+              
+              });
+      
+            }
             
           } else {
             
             score += self.frames[k][0] + self.frames[k][1];
             
           }
+  
         
       } else {
 
@@ -42,18 +62,30 @@ var calculator = {
           
           firstShot = self.frames[k][0];
           secondShot = self.frames[k][1];
-          nextShot = k < self.frames.length - 1 ? self.frames[k + 1][0] : 0;
+          nextShot = k < self.frames.length - 1 && self.frames[k + 1] !== undefined ? self.frames[k + 1][0] : 0;
           score += (firstShot + secondShot) + nextShot;
           
         } else if (f.isStrike){
           
-          score += (k > 0 ? self.frames[k - 1] : 0) + 10; // automatically wins 10 points
+          score += 10; // automatically wins 10 points
           
+          // sum next two first frame shots, if next is strike
           if (self.frames[k + 1] !== undefined && self.frames[k + 1].isStrike){
+              
+              // exception for 9th, that get scores differently
+              if (k === 8){
+                
+                  score += self.frames[k + 1][0] + ( self.frames[k + 1] !== undefined ? self.frames[k + 1][0] : 0);
+                
+              } else {
+           
+                  score += self.frames[k + 1][0] + ( self.frames[k + 2] !== undefined ? self.frames[k + 2][0] : 0);
+              
+              }
             
-            score += self.frames[k + 1] + ( self.frames[k + 2] !== undefined ? self.frames[k + 2] : 0);
-            
-          } else if (self.frames[k + 1] !== undefined) {
+          } 
+          // sum next two shots from same frame
+          else if (self.frames[k + 1] !== undefined) {
             
              score += self.frames[k + 1][0] + self.frames[k + 1][1];
             
@@ -99,7 +131,14 @@ var calculator = {
     
     for (var i = 0; i < 2; i++){
       
-      score = self.getPinsKnockDown(pins); 
+      if (Array.isArray(self.manualScoreData) && self.manualScoreData.length > 0){
+          score = self.manualScoreData[x][i];
+        
+      } else {
+
+          score = self.getPinsKnockDown(pins);
+      
+      }
       
       // on 1st attempt
       if (i < 1){
@@ -110,6 +149,24 @@ var calculator = {
             self.frames[x][i] = 10;
             self.frames[x][i + 1] = 0;
             self.frames[x].isStrike = true;
+          
+            // except that, 
+            if (x === 9){
+            
+              // create 2 indexes, each new strike shot 10 pins, otherwise remain pins
+              self.frames[x][i + 1] = Array.isArray(self.manualScoreData) && self.manualScoreData.length > 0 ? self.manualScoreData[9][0] : self.getPinsKnockDown(10);
+              
+              if (self.frames[x][i + 1] < 10){
+  
+                self.frames[x][i + 2] = Array.isArray(self.manualScoreData) && self.manualScoreData.length > 0 ? self.manualScoreData[9][1] : self.getPinsKnockDown(10 - self.frames[x][i + 1]);
+                
+              } else {
+                
+                self.frames[x][i + 2] = Array.isArray(self.manualScoreData) && self.manualScoreData.length > 0 ? self.manualScoreData[9][2] : self.getPinsKnockDown(10);
+                
+              }
+              
+            }
             
           break; // go to next frame          
         
@@ -155,11 +212,45 @@ var calculator = {
   
 };
 
-[0, 1, 2, 3, 5, 6, 7, 8, 9].forEach(function(index){
+var data = [{
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 0
+}, {
+  0: 10,
+  1: 10,
+  2: 10
+}]; 
+
+calculator.manualScoreData = data;
+
+calculator.manualScoreData.forEach(function(v, index){
   
   calculator.throwBall(index);
   
 });
 
 calculator.calculateScore();
-
