@@ -49,7 +49,9 @@
 
       <div id="frameControl" class="user-control" ng-controller="frameCtrl">
 
-         <div class="shot-number index-{{ $index }}" ng-repeat="number in totalPins track by $index" ng-click="setScore(number, $event)" score="{{ number }}">{{ number }}</div>
+        <p>How many did you knocked down on frame {{ user.activeIndex + 1 }} ?</p>
+
+        <div class="shot-number index-{{ $index }}" ng-repeat="number in totalPins track by $index" ng-click="setScore(number, $event)" score="{{ number }}">{{ number }}</div>
 
               
       </div>
