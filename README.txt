@@ -6,10 +6,15 @@ pin_bowling#Scoring
 
 Live demo:
 
-	Object:
+	Proto/Object:
 
 		http://bowling_calculator.punkbit.com/bowling_calculator.js		
 
 	Spec runner:
 
 		http://bowling_calculator.punkbit.com/jasmine/SpecRunner.html
+
+
+	Work in progress:
+
+		http://bowling_calculator_app.punkbit.com/
