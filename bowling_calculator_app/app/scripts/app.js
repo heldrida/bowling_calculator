@@ -40,13 +40,22 @@ angular.module('bowlingCalculatorAppApp', [])
 .controller('frameCtrl', function ($scope) {
 
 
-	$scope.shotNumbers = [];
+	$scope.totalPins = [];
 
-	for (var i = 1; i < 11; i++){
+	$scope.pins = function(total){
 
-		$scope.shotNumbers.push(i);
+		$scope.totalPins = []; // reset
+		var total = total || 10;
+
+		for (var i = 1; i <= total; i++){
+
+			$scope.totalPins.push(i);
+
+		};
 
 	};
+	
+	$scope.pins();
 
 
 	var lock = false;
@@ -59,11 +68,15 @@ angular.module('bowlingCalculatorAppApp', [])
 		
 			$scope.frames[$scope.user.activeIndex].firstAtt = score;
 			lock = true;
+			$scope.pins(10 - score);
+
 		} else {
 
 			$scope.frames[$scope.user.activeIndex].secondAtt = score;
 			lock = false;
 			$scope.user.activeIndex += 1;
+			$scope.pins(10);
+			
 		}
 
 	};
