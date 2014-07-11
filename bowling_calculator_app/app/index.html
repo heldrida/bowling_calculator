@@ -47,11 +47,20 @@
 
       </div>
 
-      <div id="control">
+      <div id="frameControl" class="user-control" ng-controller="frameCtrl">
+
+         <div class="shot-number index-{{ $index }}" ng-repeat="number in shotNumbers track by $index">{{ number }}</div>
+
+              
+      </div>
+
+      <div id="control" class="user-control">
 
           <button id="start" class="myButton">start</button>      
           <button id="reset" class="myButton">reset</button>
       
+          <button id="nextFrame" class="myButton" ng-click="nextFrame()">Next Frame</button>
+
       </div>
 
     </div>
