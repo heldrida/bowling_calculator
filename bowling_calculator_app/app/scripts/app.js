@@ -45,7 +45,7 @@ angular.module('bowlingCalculatorAppApp', [])
 	$scope.pins = function(total){
 
 		$scope.totalPins = []; // reset
-		var total = total || 10;
+		var total = total;
 
 		for (var i = 1; i <= total; i++){
 
@@ -55,7 +55,7 @@ angular.module('bowlingCalculatorAppApp', [])
 
 	};
 	
-	$scope.pins();
+	$scope.pins(10);
 
 
 	var lock = false;
@@ -69,6 +69,14 @@ angular.module('bowlingCalculatorAppApp', [])
 			$scope.frames[$scope.user.activeIndex].firstAtt = score;
 			lock = true;
 			$scope.pins(10 - score);
+
+			if ((10 - score) === 0){
+
+				lock = false;
+				$scope.user.activeIndex += 1;
+				$scope.pins(10);
+				
+			}
 
 		} else {
 
